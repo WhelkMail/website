@@ -1,0 +1,20 @@
+baseURL = "https://whelkmail.eu/"
+languageCode = "en"
+title = "WhelkMail — self-hosted webmail for the mailboxes you own"
+enableRobotsTXT = true
+disableKinds = ["taxonomy", "term", "RSS"]
+
+[params]
+description = "WhelkMail is a self-hosted webmail client for IMAP and SMTP accounts you already own. Cloudflare-native, privacy-first, MIT licensed."
+ogTitle = "WhelkMail — one calm inbox for every mailbox"
+ogDescription = "A self-hosted, Cloudflare-native webmail client for the IMAP and SMTP accounts you already own."
+ogImage = "screenshots/inbox.png"
+ogImageAlt = "WhelkMail inbox showing multiple accounts, shared labels and a message list"
+ogLocale = "en_US"
+themeColor = "#c5221f"
+notFoundTitle = "Page not found — WhelkMail"
+githubRepo = "https://github.com/WhelkMail/WhelkMail"
+
+[sitemap]
+changefreq = "monthly"
+priority = 1.0
