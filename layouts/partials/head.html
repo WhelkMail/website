@@ -1,5 +1,6 @@
 {{- $is404 := eq .Kind "404" -}}
 {{- $ogImage := site.Params.ogImage | absURL -}}
+{{ partial "gtm-head.html" . }}
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>{{ if $is404 }}{{ site.Params.notFoundTitle }}{{ else }}{{ site.Title }}{{ end }}</title>

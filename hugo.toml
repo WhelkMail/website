@@ -18,3 +18,7 @@ githubRepo = "https://github.com/WhelkMail/WhelkMail"
 [sitemap]
 changefreq = "monthly"
 priority = 1.0
+
+[security]
+  [security.funcs]
+    getenv = ['^HUGO_', '^GTM_']
