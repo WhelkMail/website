@@ -14,6 +14,7 @@ ogLocale = "en_US"
 themeColor = "#c5221f"
 notFoundTitle = "Page not found — WhelkMail"
 githubRepo = "https://github.com/WhelkMail/WhelkMail"
+docsURL = "https://docs.whelkmail.eu/getting-started/"
 
 [sitemap]
 changefreq = "monthly"
