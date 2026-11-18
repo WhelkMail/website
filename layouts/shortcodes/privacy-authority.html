@@ -1,0 +1,3 @@
+{{- $name := site.Params.privacyAuthority | default "Garante per la protezione dei dati personali" -}}
+{{- $url := site.Params.privacyAuthorityURL | default "https://www.garanteprivacy.it/" -}}
+<a href="{{ $url }}" target="_blank" rel="noopener">{{ $name }}</a>

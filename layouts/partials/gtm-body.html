@@ -1,7 +1,0 @@
-{{- $gtmID := os.Getenv "GTM_ID" -}}
-{{- if not $gtmID }}{{ $gtmID = os.Getenv "HUGO_GTM_ID" }}{{ end -}}
-{{- with $gtmID }}
-{{- if findRE `^GTM-[A-Z0-9]+$` . 1 }}
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ . }}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-{{- end }}
-{{- end }}

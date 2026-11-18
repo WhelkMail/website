@@ -1,0 +1,3 @@
+{{- $controller := site.Params.privacyController | default "WhelkMail" -}}
+{{- $country := site.Params.privacyCountry | default "Italy" -}}
+{{- $controller -}}{{ with $country }}, {{ . }}{{ end -}}

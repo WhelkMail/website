@@ -19,6 +19,11 @@ demoURL = "https://demo.whelkmail.eu"
 installerRepo = "https://github.com/WhelkMail/installer"
 installerURL = "https://github.com/WhelkMail/installer#readme"
 deployURL = "https://docs.whelkmail.eu/deployment/"
+privacyController = "WhelkMail"
+privacyEmail = "info@whelkmail.eu"
+privacyCountry = "Italy"
+privacyAuthority = "Garante per la protezione dei dati personali"
+privacyAuthorityURL = "https://www.garanteprivacy.it/"
 
 [sitemap]
 changefreq = "monthly"
