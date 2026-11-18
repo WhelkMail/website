@@ -15,6 +15,10 @@ themeColor = "#c5221f"
 notFoundTitle = "Page not found — WhelkMail"
 githubRepo = "https://github.com/WhelkMail/WhelkMail"
 docsURL = "https://docs.whelkmail.eu/getting-started/"
+demoURL = "https://demo.whelkmail.eu"
+installerRepo = "https://github.com/WhelkMail/installer"
+installerURL = "https://github.com/WhelkMail/installer#readme"
+deployURL = "https://docs.whelkmail.eu/deployment/"
 
 [sitemap]
 changefreq = "monthly"

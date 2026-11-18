@@ -359,6 +359,16 @@ h3 {
   font-size: 0.88rem;
 }
 
+.card p + p,
+.card .note {
+  margin-top: 0.75rem;
+}
+
+.card a {
+  color: var(--brand-strong);
+  font-weight: 600;
+}
+
 .icon {
   display: grid;
   place-items: center;
@@ -515,7 +525,8 @@ h3 {
   font-size: 0.82rem;
 }
 
-.note a {
+.note a,
+.steps a {
   color: var(--brand-strong);
   font-weight: 600;
 }
@@ -617,7 +628,24 @@ h3 {
 }
 
 @media (max-width: 860px) {
+  .header-inner {
+    flex-wrap: wrap;
+    padding-block: 0.7rem;
+  }
+
   .site-nav {
+    order: 3;
+    width: 100%;
+    margin-left: 0;
+    gap: 1.15rem;
+    overflow-x: auto;
+    padding-bottom: 0.15rem;
+    white-space: nowrap;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .site-nav::-webkit-scrollbar {
     display: none;
   }
 

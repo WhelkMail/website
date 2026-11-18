@@ -14,8 +14,11 @@
               no lock-in.
             </p>
             <div class="actions">
-              <a class="button" href="https://github.com/WhelkMail/WhelkMail#deploy-on-cloudflare">
-                Deploy your own
+              <a class="button" href="{{ site.Params.demoURL }}" target="_blank" rel="noopener">
+                Try the live demo
+              </a>
+              <a class="button button-ghost" href="{{ site.Params.installerRepo }}">
+                Install in minutes
               </a>
               <a class="button button-ghost" href="https://github.com/WhelkMail/WhelkMail">
                 View on GitHub
@@ -40,6 +43,72 @@
               />
             </figure>
             <div class="glow"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="try" class="section section-soft">
+        <div class="wrap">
+          <p class="eyebrow">Try before you deploy</p>
+          <h2>A live demo, and an installer for your own copy.</h2>
+          <p class="section-lede">
+            Two quick ways to see WhelkMail in action, or to put it on your own
+            Cloudflare account without following the full deployment guide.
+          </p>
+
+          <div class="cards">
+            <article class="card">
+              <div class="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="m10 8 6 4-6 4z" />
+                </svg>
+              </div>
+              <h3>Live demo</h3>
+              <p>
+                <a href="{{ site.Params.demoURL }}" target="_blank" rel="noopener">demo.whelkmail.eu</a>
+                is a static, backend-free preview of the real UI. Every API call is
+                answered by an in-memory mock with fake accounts and messages, so
+                nothing is sent and no real mailbox is touched.
+              </p>
+              <p class="note"><a href="{{ site.Params.demoURL }}" target="_blank" rel="noopener">Open the demo &rarr;</a></p>
+            </article>
+
+            <article class="card">
+              <div class="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3v12M7 10l5 5 5-5" />
+                  <path d="M5 21h14" />
+                </svg>
+              </div>
+              <h3>Installer (beta)</h3>
+              <p>
+                The
+                <a href="{{ site.Params.installerRepo }}">WhelkMail Installer</a>
+                creates the Pages project and the D1 database in <strong>your</strong>
+                Cloudflare account, stores the required secrets, deploys the app and
+                checks the health endpoint. Run it from GitHub Actions in the browser,
+                or with one terminal command.
+              </p>
+              <p class="note"><a href="{{ site.Params.installerURL }}">Read the installer guide &rarr;</a></p>
+            </article>
+
+            <article class="card">
+              <div class="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="4" y="3" width="16" height="18" rx="2" />
+                  <path d="M8 7h8M8 11h8M8 15h5" />
+                </svg>
+              </div>
+              <h3>Full manual deployment</h3>
+              <p>
+                Prefer to control every step? The documentation walks through the
+                Pages project, D1 bindings, secrets, OAuth apps, R2 archive and the
+                optional cron worker by hand. The installer is a convenience on top
+                of the same resources.
+              </p>
+              <p class="note"><a href="{{ site.Params.docsURL }}">Open the documentation &rarr;</a></p>
+            </article>
           </div>
         </div>
       </section>
@@ -255,7 +324,7 @@
             <div class="step">
               <span class="step-number">02</span>
               <h3>Deploy to your account</h3>
-              <p>Use the template, create a D1 database, set your secrets and connect the Pages project. The guide walks you through it.</p>
+              <p>Run the <a href="{{ site.Params.installerRepo }}">installer</a> (beta) to create the Pages project, the D1 database and the secrets automatically, or follow the guide and do it by hand.</p>
             </div>
             <div class="step">
               <span class="step-number">03</span>
@@ -272,7 +341,12 @@ npm install
 cp wrangler.toml.example wrangler.toml
 npm run db:local</code></pre>
           </div>
-          <p class="note">See the <a href="{{ site.Params.docsURL }}" target="_blank" rel="noopener">documentation</a> for bindings, secrets and OAuth setup.</p>
+          <p class="note">
+            Fast path (beta): <code>npx github:WhelkMail/installer</code> provisions your Cloudflare
+            resources and deploys the app for you. Or see the
+            <a href="{{ site.Params.docsURL }}" target="_blank" rel="noopener">documentation</a>
+            for bindings, secrets and OAuth setup.
+          </p>
         </div>
       </section>
 
@@ -283,7 +357,7 @@ npm run db:local</code></pre>
             <h2>Ready to run your own mail client?</h2>
           </div>
           <div class="actions">
-            <a class="button" href="https://github.com/WhelkMail/WhelkMail#deploy-on-cloudflare">Deploy your own</a>
+            <a class="button" href="{{ site.Params.deployURL }}">Deploy your own</a>
             <a class="button button-ghost" href="https://github.com/WhelkMail/WhelkMail">View on GitHub</a>
           </div>
         </div>
