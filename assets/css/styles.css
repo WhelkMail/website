@@ -111,7 +111,7 @@ a {
   display: none;
 }
 
-.nav-demo {
+.site-nav a.nav-demo {
   display: none;
 }
 
@@ -998,7 +998,7 @@ h3 {
     color: var(--brand-strong);
   }
 
-  .site-nav .nav-demo {
+  .site-nav a.nav-demo {
     display: inline-flex;
     justify-content: center;
     margin-top: 0.5rem;
