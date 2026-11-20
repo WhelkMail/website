@@ -20,7 +20,8 @@
               <a class="button button-ghost" href="{{ site.Params.installerRepo }}">
                 Install in minutes
               </a>
-              <a class="button button-ghost" href="https://github.com/WhelkMail/WhelkMail">
+              <a class="button button-ghost" href="{{ site.Params.githubRepo }}" target="_blank" rel="noopener">
+                {{- partial "icon-github.html" . -}}
                 View on GitHub
               </a>
             </div>
@@ -358,7 +359,7 @@ npm run db:local</code></pre>
           </div>
           <div class="actions">
             <a class="button" href="{{ site.Params.deployURL }}">Deploy your own</a>
-            <a class="button button-ghost" href="https://github.com/WhelkMail/WhelkMail">View on GitHub</a>
+            <a class="button button-ghost" href="{{ site.Params.githubRepo }}" target="_blank" rel="noopener">{{ partial "icon-github.html" . }}View on GitHub</a>
           </div>
         </div>
       </section>

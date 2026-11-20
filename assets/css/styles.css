@@ -111,7 +111,7 @@ a {
   display: none;
 }
 
-.nav-deploy {
+.nav-demo {
   display: none;
 }
 
@@ -125,8 +125,23 @@ a {
 }
 
 .site-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   text-decoration: none;
   transition: color 0.15s ease;
+}
+
+.icon-github {
+  width: 1.05em;
+  height: 1.05em;
+  flex: none;
+}
+
+.icon-play {
+  width: 0.8em;
+  height: 0.8em;
+  flex: none;
 }
 
 .site-nav a:hover {
@@ -616,6 +631,9 @@ h3 {
 }
 
 .footer-inner nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   text-decoration: none;
 }
 
@@ -945,7 +963,7 @@ h3 {
     transform: translateY(-6px) rotate(-45deg);
   }
 
-  .button-deploy {
+  .button-demo {
     display: none;
   }
 
@@ -980,7 +998,7 @@ h3 {
     color: var(--brand-strong);
   }
 
-  .site-nav .nav-deploy {
+  .site-nav .nav-demo {
     display: inline-flex;
     justify-content: center;
     margin-top: 0.5rem;
@@ -989,7 +1007,7 @@ h3 {
     font-weight: 600;
   }
 
-  .site-nav .nav-deploy:hover {
+  .site-nav .nav-demo:hover {
     background: var(--brand-strong);
     color: #fff;
   }

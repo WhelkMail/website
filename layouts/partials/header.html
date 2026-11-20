@@ -16,17 +16,21 @@
       <span></span>
     </button>
     <nav class="site-nav" id="site-nav" aria-label="Main">
-      <a href="#try">Demo</a>
       <a href="#features">Features</a>
-      <a href="#screenshots">Screenshots</a>
       <a href="#security">Security</a>
-      <a href="#deploy">Deploy</a>
       <a href="{{ site.Params.docsURL }}" target="_blank" rel="noopener">Docs</a>
-      <a href="https://github.com/WhelkMail/WhelkMail">GitHub</a>
-      <a class="nav-deploy" href="{{ site.Params.deployURL }}">Deploy your own</a>
+      <a href="{{ site.Params.githubRepo }}" target="_blank" rel="noopener">
+        {{- partial "icon-github.html" . -}}
+        <span>GitHub</span>
+      </a>
+      <a class="nav-demo" href="{{ site.Params.demoURL }}" target="_blank" rel="noopener">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 5v14l11-7z"/></svg>
+        Live demo
+      </a>
     </nav>
-    <a class="button button-small button-deploy" href="{{ site.Params.deployURL }}">
-      Deploy your own
+    <a class="button button-small button-demo" href="{{ site.Params.demoURL }}" target="_blank" rel="noopener">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 5v14l11-7z"/></svg>
+      Live demo
     </a>
   </div>
 </header>
