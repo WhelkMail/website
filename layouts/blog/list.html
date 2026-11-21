@@ -1,0 +1,30 @@
+{{ define "main" }}
+<section class="blog-hero">
+  <div class="wrap">
+    <p class="eyebrow">WhelkMail Blog</p>
+    <h1>{{ .Title }}</h1>
+    <p class="lede">{{ .Params.lede | default .Description }}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    {{- with .Content }}
+    <div class="blog-intro">{{ . }}</div>
+    {{- end }}
+    <div class="cards blog-cards">
+      {{- range .Pages.ByDate.Reverse }}
+      <article class="card post-card">
+        <p class="post-meta">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
+          <span aria-hidden="true"> · </span>{{ .Params.author | default "WhelkMail Team" }}
+        </p>
+        <h2 class="post-card-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        <p>{{ .Description }}</p>
+        <p class="note"><a href="{{ .RelPermalink }}">Read the article <span aria-hidden="true">&rarr;</span></a></p>
+      </article>
+      {{- end }}
+    </div>
+  </div>
+</section>
+{{ end }}

@@ -1,30 +1,57 @@
 {{- $is404 := eq .Kind "404" -}}
-{{- $ogImage := site.Params.ogImage | absURL -}}
+{{- $isBlogPost := and .IsPage (eq .Section "blog") -}}
+{{- $isBlogList := and (eq .Kind "section") (eq .Section "blog") -}}
+{{- $title := site.Title -}}
+{{- $description := site.Params.description -}}
+{{- $ogTitle := site.Params.ogTitle -}}
+{{- $ogDescription := site.Params.ogDescription -}}
+{{- $ogImagePath := site.Params.ogImage -}}
+{{- if and (not $is404) (not .IsHome) -}}
+  {{- $pageTitle := .Title | default site.Title -}}
+  {{- $title = printf "%s — WhelkMail" $pageTitle -}}
+  {{- $description = .Description | default site.Params.description -}}
+  {{- $ogTitle = .Params.ogTitle | default $title -}}
+  {{- $ogDescription = .Params.ogDescription | default $description -}}
+  {{- with .Params.ogImage }}{{ $ogImagePath = . }}{{ end -}}
+{{- end -}}
+{{- $ogImage := $ogImagePath | absURL -}}
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>{{ if $is404 }}{{ site.Params.notFoundTitle }}{{ else }}{{ site.Title }}{{ end }}</title>
+<title>{{ if $is404 }}{{ site.Params.notFoundTitle }}{{ else }}{{ $title }}{{ end }}</title>
 {{- if $is404 }}
 <meta name="robots" content="noindex" />
 {{- else }}
-<meta name="description" content="{{ site.Params.description }}" />
-<meta name="robots" content="index,follow,max-image-preview:large" />
+<meta name="description" content="{{ $description }}" />
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
 <link rel="canonical" href="{{ .Permalink }}" />
-<meta property="og:type" content="website" />
+<meta property="og:type" content="{{ if $isBlogPost }}article{{ else }}website{{ end }}" />
 <meta property="og:site_name" content="WhelkMail" />
 <meta property="og:locale" content="{{ site.Params.ogLocale }}" />
 <meta property="og:url" content="{{ .Permalink }}" />
-<meta property="og:title" content="{{ site.Params.ogTitle }}" />
-<meta property="og:description" content="{{ site.Params.ogDescription }}" />
+<meta property="og:title" content="{{ $ogTitle }}" />
+<meta property="og:description" content="{{ $ogDescription }}" />
 <meta property="og:image" content="{{ $ogImage }}" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1920" />
 <meta property="og:image:height" content="913" />
 <meta property="og:image:alt" content="{{ site.Params.ogImageAlt }}" />
+{{- if $isBlogPost }}
+<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" />
+<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}" />
+<meta property="article:author" content="{{ .Params.author | default "WhelkMail Team" }}" />
+<meta property="article:section" content="Blog" />
+{{- with .Params.keywords }}{{ range first 6 . }}
+<meta property="article:tag" content="{{ . }}" />
+{{- end }}{{ end }}
+{{- end }}
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="{{ site.Params.ogTitle }}" />
-<meta name="twitter:description" content="{{ site.Params.ogDescription }}" />
+<meta name="twitter:title" content="{{ $ogTitle }}" />
+<meta name="twitter:description" content="{{ $ogDescription }}" />
 <meta name="twitter:image" content="{{ $ogImage }}" />
 <meta name="twitter:image:alt" content="{{ site.Params.ogImageAlt }}" />
+{{- with .Params.keywords }}
+<meta name="keywords" content="{{ delimit . ", " }}" />
+{{- end }}
 <link rel="preload" as="image" href="{{ "screenshots/inbox.png" | relURL }}" fetchpriority="high" />
 {{- end }}
 <meta name="theme-color" content="{{ site.Params.themeColor }}" />
@@ -32,34 +59,106 @@
 {{- $css := resources.Get "css/styles.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" />
 {{- if not $is404 }}
-{{- $schema := dict
-  "@context" "https://schema.org"
-  "@graph" (slice
-    (dict
-      "@type" "WebSite"
-      "@id" (printf "%s#website" site.BaseURL)
-      "name" "WhelkMail"
-      "url" site.BaseURL
-      "inLanguage" site.Language.LanguageCode
-    )
-    (dict
-      "@type" "SoftwareApplication"
-      "@id" (printf "%s#app" site.BaseURL)
-      "name" "WhelkMail"
-      "url" site.BaseURL
-      "description" site.Params.description
-      "applicationCategory" "WebApplication"
-      "operatingSystem" "Cloudflare Workers"
-      "image" $ogImage
-      "license" "https://github.com/WhelkMail/WhelkMail/blob/main/LICENSE"
-      "sameAs" (slice site.Params.githubRepo)
-      "offers" (dict
-        "@type" "Offer"
-        "price" "0"
-        "priceCurrency" "USD"
-      )
+{{- $authorName := .Params.author | default "WhelkMail Team" -}}
+{{- $graph := slice
+  (dict
+    "@type" "WebSite"
+    "@id" (printf "%s#website" site.BaseURL)
+    "name" "WhelkMail"
+    "url" site.BaseURL
+    "inLanguage" site.Language.LanguageCode
+  )
+  (dict
+    "@type" "SoftwareApplication"
+    "@id" (printf "%s#app" site.BaseURL)
+    "name" "WhelkMail"
+    "url" site.BaseURL
+    "description" site.Params.description
+    "applicationCategory" "WebApplication"
+    "operatingSystem" "Cloudflare Workers"
+    "image" $ogImage
+    "license" "https://github.com/WhelkMail/WhelkMail/blob/main/LICENSE"
+    "sameAs" (slice site.Params.githubRepo)
+    "offers" (dict
+      "@type" "Offer"
+      "price" "0"
+      "priceCurrency" "USD"
     )
   )
 -}}
+{{- if $isBlogPost -}}
+  {{- $postSchema := dict
+    "@type" "BlogPosting"
+    "@id" (printf "%s#article" .Permalink)
+    "headline" .Title
+    "description" $description
+    "url" .Permalink
+    "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
+    "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00")
+    "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+    "author" (dict
+      "@type" "Organization"
+      "name" $authorName
+      "url" (printf "%sblog/" site.BaseURL)
+    )
+    "publisher" (dict
+      "@type" "Organization"
+      "name" "WhelkMail"
+      "url" site.BaseURL
+      "logo" (dict
+        "@type" "ImageObject"
+        "url" (printf "%slogo.svg" site.BaseURL)
+      )
+    )
+    "image" $ogImage
+    "articleSection" "Blog"
+    "isPartOf" (dict
+      "@type" "Blog"
+      "@id" (printf "%s#blog" (absURL "blog/"))
+    )
+    "inLanguage" site.Language.LanguageCode
+  -}}
+  {{- $breadcrumbSchema := dict
+    "@type" "BreadcrumbList"
+    "@id" (printf "%s#breadcrumb" .Permalink)
+    "itemListElement" (slice
+      (dict "@type" "ListItem" "position" 1 "name" "Home" "item" site.BaseURL)
+      (dict "@type" "ListItem" "position" 2 "name" "Blog" "item" (printf "%sblog/" site.BaseURL))
+      (dict "@type" "ListItem" "position" 3 "name" .Title "item" .Permalink)
+    )
+  -}}
+  {{- $graph = $graph | append $postSchema $breadcrumbSchema -}}
+{{- else if $isBlogList -}}
+  {{- $blogPosts := slice -}}
+  {{- range .Pages.ByDate.Reverse -}}
+    {{- $blogPosts = $blogPosts | append (dict
+      "@type" "BlogPosting"
+      "headline" .Title
+      "url" .Permalink
+      "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00")
+      "author" (dict "@type" "Organization" "name" (.Params.author | default "WhelkMail Team"))
+    ) -}}
+  {{- end -}}
+  {{- $blogSchema := dict
+    "@type" "Blog"
+    "@id" (printf "%s#blog" .Permalink)
+    "name" "WhelkMail Blog"
+    "description" $description
+    "url" .Permalink
+    "inLanguage" site.Language.LanguageCode
+    "publisher" (dict "@type" "Organization" "name" "WhelkMail" "url" site.BaseURL)
+    "blogPost" $blogPosts
+  -}}
+  {{- $breadcrumbSchema := dict
+    "@type" "BreadcrumbList"
+    "@id" (printf "%s#breadcrumb" .Permalink)
+    "itemListElement" (slice
+      (dict "@type" "ListItem" "position" 1 "name" "Home" "item" site.BaseURL)
+      (dict "@type" "ListItem" "position" 2 "name" "Blog" "item" .Permalink)
+    )
+  -}}
+  {{- $graph = $graph | append $blogSchema $breadcrumbSchema -}}
+{{- end -}}
+{{- $schema := dict "@context" "https://schema.org" "@graph" $graph -}}
 <script type="application/ld+json">{{ $schema | jsonify | safeJS }}</script>
 {{- end }}

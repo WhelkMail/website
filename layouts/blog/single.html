@@ -1,0 +1,54 @@
+{{ define "main" }}
+{{- $author := .Params.author | default "WhelkMail Team" -}}
+{{- $posts := where site.RegularPages "Section" "blog" -}}
+{{- $related := first 3 (where $posts "Permalink" "ne" .Permalink).ByDate.Reverse -}}
+<article class="post wrap">
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="{{ "/" | relURL }}">Home</a>
+    <span aria-hidden="true">/</span>
+    <a href="{{ "blog/" | relURL }}">Blog</a>
+  </nav>
+  <p class="eyebrow">Blog</p>
+  <h1>{{ .Title }}</h1>
+  <p class="meta">
+    By {{ $author }} <span aria-hidden="true">·</span>
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
+    {{- if ne (.Date.Format "2006-01-02") (.Lastmod.Format "2006-01-02") }}
+    <span aria-hidden="true">·</span> Updated <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod.Format "2 January 2006" }}</time>
+    {{- end }}
+  </p>
+
+  {{- with .Params.keywords }}
+  <p class="post-tags" aria-label="Topics">
+    {{- range . }}<span>{{ . }}</span>{{ end }}
+  </p>
+  {{- end }}
+
+  <div class="post-body">
+    {{ .Content }}
+  </div>
+
+  <footer class="post-footer">
+    <p class="post-signature">Written by <strong>{{ $author }}</strong>.</p>
+    <p>WhelkMail is a self-hosted webmail client for the IMAP and SMTP mailboxes you already own. It is MIT licensed and runs on your own Cloudflare account.</p>
+    <p class="post-actions">
+      <a class="button" href="{{ site.Params.demoURL }}" target="_blank" rel="noopener">Try the live demo</a>
+      <a class="button button-ghost" href="{{ site.Params.githubRepo }}" target="_blank" rel="noopener">View on GitHub</a>
+    </p>
+  </footer>
+
+  {{- with $related }}
+  <aside class="related" aria-labelledby="related-title">
+    <h2 id="related-title">Keep reading</h2>
+    <ul>
+      {{- range . }}
+      <li>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        <span class="post-meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time></span>
+      </li>
+      {{- end }}
+    </ul>
+  </aside>
+  {{- end }}
+</article>
+{{ end }}
