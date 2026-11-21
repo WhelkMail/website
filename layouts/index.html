@@ -29,7 +29,7 @@
               <li>MIT licensed</li>
               <li>No telemetry</li>
               <li>IMAP + SMTP</li>
-              <li>Optional TOTP 2FA</li>
+              <li>Rich text + vCard</li>
             </ul>
           </div>
 
@@ -143,7 +143,7 @@
                 </svg>
               </div>
               <h3>Labels and filters</h3>
-              <p>Create labels shared across accounts and apply them with filters that cover every folder. Each account's automatic label is an editable filter, and matching incoming mail can be forwarded with the original EML attached.</p>
+              <p>Create labels shared across accounts and apply them with filters that cover every folder. Word rules are re-evaluated once the body is indexed, forwarding aliases are read from the real headers, and conversations keep every label they carry. Each account's automatic label is an editable filter.</p>
             </article>
 
             <article class="card">
@@ -207,8 +207,19 @@
                   <path d="M8 7h8M8 11h8M8 15h5" />
                 </svg>
               </div>
-              <h3>Contacts and signatures</h3>
-              <p>A shared address book with CSV import/export and autocomplete, plus one shared signature or a different signature per account.</p>
+              <h3>Contacts, signatures and vacation responder</h3>
+              <p>A structured address book with name, company, phone, address, extra emails and vCard 3.0/4.0 import/export; recipients become Other contacts automatically. Signatures and the vacation responder support rich text, shared or per account.</p>
+            </article>
+
+            <article class="card">
+              <div class="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 6h16M4 11h11M4 16h7" />
+                  <path d="m15 15 2 2 4-4" />
+                </svg>
+              </div>
+              <h3>Write like Gmail</h3>
+              <p>Rich-text composer with bold, lists, links and quotes, plus a plain-text fallback. The default format is saved per device, and Enter never sends a message by accident.</p>
             </article>
           </div>
         </div>
@@ -242,7 +253,7 @@
                 loading="lazy"
                 alt="Compose window in WhelkMail with sender, recipients and attachment controls"
               />
-              <figcaption>Compose with per-account senders, attachments and draft autosave.</figcaption>
+              <figcaption>Compose with rich text, per-account senders, attachments and draft autosave.</figcaption>
             </figure>
             <figure class="shot">
               <img
@@ -252,7 +263,7 @@
                 loading="lazy"
                 alt="WhelkMail account settings showing IMAP connection state and mailbox sync"
               />
-              <figcaption>Per-account settings, sync status and label automation in one place.</figcaption>
+              <figcaption>Per-account settings, signatures, auto-reply, sync status and label automation in one place.</figcaption>
             </figure>
             <figure class="shot">
               <img
@@ -330,7 +341,7 @@
             <div class="step">
               <span class="step-number">03</span>
               <h3>Optional: background worker</h3>
-              <p>Folder opens already sync automatically. Deploy the cron worker for periodic sync, new-mail notifications, forwarding and provider cleanup.</p>
+              <p>Folder opens already sync automatically. Deploy the cron worker for periodic sync, new-mail notifications, forwarding, the vacation responder and provider cleanup.</p>
             </div>
           </div>
 
