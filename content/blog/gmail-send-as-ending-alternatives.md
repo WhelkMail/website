@@ -114,7 +114,7 @@ addresses, but you get one interface for all of them — including the ability t
 choose the sender address per account.
 
 [WhelkMail](https://whelkmail.eu/) is built for exactly this scenario. It is a
-self-hosted, Cloudflare-native webmail client for IMAP and SMTP accounts. You
+self-hosted webmail client for IMAP and SMTP accounts, deployable on Cloudflare Workers, Pages or Docker. You
 connect Gmail, Outlook, iCloud, Fastmail, Yahoo or a custom domain, and each
 account keeps its own sender identity, signature and outgoing server. Labels and
 filters are shared across accounts, so the consolidated workflow Gmail is

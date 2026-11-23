@@ -2,7 +2,7 @@
       <section class="hero">
         <div class="wrap hero-grid">
           <div class="hero-copy">
-            <p class="eyebrow">Self-hosted webmail · Cloudflare-native</p>
+            <p class="eyebrow">Self-hosted webmail · Cloudflare or Docker</p>
             <h1>
               Your mailboxes.<br />
               Your domain.<br />
@@ -10,8 +10,9 @@
             </h1>
             <p class="lede">
               WhelkMail turns the IMAP and SMTP accounts you already own into a fast,
-              familiar inbox. No mail server to run, no third-party inbox in the middle,
-              no lock-in.
+              familiar inbox. Run it on Cloudflare Workers, on Pages, or in a single
+              Docker container. No mail server to run, no third-party inbox in the
+              middle, no lock-in.
             </p>
             <div class="actions">
               <a class="button" href="{{ site.Params.demoURL }}" target="_blank" rel="noopener">
@@ -51,10 +52,10 @@
       <section id="try" class="section section-soft">
         <div class="wrap">
           <p class="eyebrow">Try before you deploy</p>
-          <h2>A live demo, and an installer for your own copy.</h2>
+          <h2>A live demo, and three ways to run your own copy.</h2>
           <p class="section-lede">
-            Two quick ways to see WhelkMail in action, or to put it on your own
-            Cloudflare account without following the full deployment guide.
+            Preview the app, deploy the Worker with one click, use the Pages installer,
+            or self-host it in Docker on any VPS.
           </p>
 
           <div class="cards">
@@ -82,16 +83,15 @@
                   <path d="M5 21h14" />
                 </svg>
               </div>
-              <h3>Installer (beta)</h3>
+              <h3>Deploy to Cloudflare</h3>
               <p>
                 The
-                <a href="{{ site.Params.installerRepo }}">WhelkMail Installer</a>
-                creates the Pages project and the D1 database in <strong>your</strong>
-                Cloudflare account, stores the required secrets, deploys the app and
-                checks the health endpoint. Run it from GitHub Actions in the browser,
-                or with one terminal command.
+                <a href="https://deploy.workers.cloudflare.com/?url=https://github.com/WhelkMail/WhelkMail">Deploy to Cloudflare button</a>
+                clones the repository into <strong>your</strong> GitHub account,
+                provisions D1/R2, configures Workers Builds and deploys the Worker.
+                The Pages installer remains available for existing installations.
               </p>
-              <p class="note"><a href="{{ site.Params.installerURL }}">Read the installer guide &rarr;</a></p>
+              <p class="note"><a href="{{ site.Params.installerURL }}">Pages installer guide &rarr;</a></p>
             </article>
 
             <article class="card">
@@ -101,12 +101,11 @@
                   <path d="M8 7h8M8 11h8M8 15h5" />
                 </svg>
               </div>
-              <h3>Full manual deployment</h3>
+              <h3>Workers, Pages or Docker</h3>
               <p>
-                Prefer to control every step? The documentation walks through the
-                Pages project, D1 bindings, secrets, OAuth apps, R2 archive and the
-                optional cron worker by hand. The installer is a convenience on top
-                of the same resources.
+                Prefer to control every step? The documentation covers the Workers
+                deployment, the Pages project, Docker with SQLite and S3/MinIO,
+                bindings, secrets, OAuth apps, the archive and the scheduler by hand.
               </p>
               <p class="note"><a href="{{ site.Params.docsURL }}">Open the documentation &rarr;</a></p>
             </article>
@@ -312,7 +311,7 @@
             </div>
             <div class="panel-row">
               <span class="panel-dot"></span>
-              <div><strong>Open source</strong><p>MIT licensed. Inspect it, fork it, self-host it on your own Cloudflare account.</p></div>
+              <div><strong>Open source</strong><p>MIT licensed. Inspect it, fork it, self-host it on your own Cloudflare account or server.</p></div>
             </div>
           </div>
         </div>
@@ -320,11 +319,12 @@
 
       <section id="deploy" class="section">
         <div class="wrap">
-          <p class="eyebrow">Runs on Cloudflare</p>
+          <p class="eyebrow">Cloudflare or your own server</p>
           <h2>Deploy in minutes, not weekends.</h2>
           <p class="section-lede">
-            Pages Functions, D1 and <code>cloudflare:sockets</code>. No VPS, no containers,
-            no mail server to patch.
+            Workers with D1, R2 and <code>cloudflare:sockets</code> by default.
+            The same code runs on Pages, or in Docker with SQLite and any S3-compatible
+            bucket. No mail server to patch.
           </p>
 
           <div class="steps">
@@ -336,12 +336,12 @@
             <div class="step">
               <span class="step-number">02</span>
               <h3>Deploy to your account</h3>
-              <p>Run the <a href="{{ site.Params.installerRepo }}">installer</a> (beta) to create the Pages project, the D1 database and the secrets automatically, or follow the guide and do it by hand.</p>
+              <p>Use the <a href="https://deploy.workers.cloudflare.com/?url=https://github.com/WhelkMail/WhelkMail">Deploy to Cloudflare button</a> for Workers, the <a href="{{ site.Params.installerRepo }}">installer</a> (beta) for Pages, or <code>docker compose up</code> on any VPS.</p>
             </div>
             <div class="step">
               <span class="step-number">03</span>
-              <h3>Optional: background worker</h3>
-              <p>Folder opens already sync automatically. Deploy the cron worker for periodic sync, new-mail notifications, forwarding, the vacation responder and provider cleanup.</p>
+              <h3>Optional: background scheduler</h3>
+              <p>Folder opens already sync automatically. The Worker cron, the Pages cron worker, or the Docker scheduler handles periodic sync, notifications, forwarding, the vacation responder and provider cleanup.</p>
             </div>
           </div>
 
@@ -350,13 +350,16 @@
             <pre><code>git clone https://github.com/WhelkMail/WhelkMail.git
 cd WhelkMail
 npm install
-cp wrangler.toml.example wrangler.toml
-npm run db:local</code></pre>
+npx wrangler d1 create mail-client
+# paste database_id into wrangler.jsonc
+npm run db:init:workers:local
+npm run dev:workers</code></pre>
           </div>
           <p class="note">
-            Fast path (beta): <code>npx github:WhelkMail/installer</code> provisions your Cloudflare
-            resources and deploys the app for you. Or see the
-            <a href="{{ site.Params.docsURL }}" target="_blank" rel="noopener">documentation</a>
+            Fast paths: the Deploy to Cloudflare button for Workers, the
+            <code>npx github:WhelkMail/installer</code> Pages installer (beta), or
+            <code>docker compose up -d --build</code> in <code>deploy/docker</code>.
+            See the <a href="{{ site.Params.docsURL }}" target="_blank" rel="noopener">documentation</a>
             for bindings, secrets and OAuth setup.
           </p>
         </div>

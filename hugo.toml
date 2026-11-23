@@ -5,9 +5,9 @@ enableRobotsTXT = true
 disableKinds = ["taxonomy", "term", "RSS"]
 
 [params]
-description = "WhelkMail is a self-hosted webmail client for IMAP and SMTP accounts you already own. Cloudflare-native, privacy-first, MIT licensed."
+description = "WhelkMail is a self-hosted webmail client for IMAP and SMTP accounts you already own. Deploy on Cloudflare Workers, Pages or Docker. Privacy-first, MIT licensed."
 ogTitle = "WhelkMail — one calm inbox for every mailbox"
-ogDescription = "A self-hosted, Cloudflare-native webmail client for the IMAP and SMTP accounts you already own."
+ogDescription = "A self-hosted webmail client for IMAP/SMTP accounts, deployable on Cloudflare Workers, Pages or Docker."
 ogImage = "screenshots/inbox.png"
 ogImageAlt = "WhelkMail inbox showing multiple accounts, shared labels and a message list"
 ogLocale = "en_US"

@@ -99,8 +99,9 @@ accounts; WhelkMail provides a Gmail-style interface on top of them.
   outgoing server. Send-only relay accounts cover domains without SMTP.
 - **Labels and filters that span accounts.** Organise mail the way Gmail users
   expect, without locking it inside Gmail.
-- **Cloudflare-native deployment.** Pages Functions, D1 and
-  `cloudflare:sockets`. No VPS, no containers and no mail server to patch.
+- **Cloudflare-first, Docker-ready.** Workers with D1, R2 and
+  `cloudflare:sockets` by default; the same code runs on Pages or in a single
+  Docker container with SQLite and S3 storage. No mail server to patch.
 - **Privacy by default.** HTML is rendered in a sandboxed frame, scripts are
   disabled, remote images are opt-in, credentials are encrypted with AES-256-GCM
   and there is no telemetry.
