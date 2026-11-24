@@ -238,7 +238,7 @@ h3 {
 }
 
 .section-lede {
-  max-width: 42rem;
+  max-width: none;
   color: var(--muted);
   font-size: 1rem;
 }
